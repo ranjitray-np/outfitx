@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OutfitX | Fashion Redefined</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #121212;
+            --secondary-black: #222222;
+            --primary-yellow: #FFDE59;
+            --secondary-yellow: #FFD100;
+            --text-light: #F5F5F5;
+            --text-gray: #AAAAAA;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        .brand-yellow {
+            color: var(--primary-yellow);
+        }
+        
+        .bg-brand-yellow {
+            background-color: var(--primary-yellow);
+        }
+        
+        .bg-brand-black {
+            background-color: var(--primary-black);
+        }
+        
+        .bg-secondary-black {
+            background-color: var(--secondary-black);
+        }
+        
+        .yellow-btn {
+            background-color: var(--primary-yellow);
+            color: var(--primary-black);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .yellow-btn:hover {
+            background-color: var(--secondary-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 222, 89, 0.3);
+        }
+        
+        .black-btn {
+            background-color: var(--primary-black);
+            color: var(--primary-yellow);
+            border: 2px solid var(--primary-yellow);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .black-btn:hover {
+            background-color: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 222, 89, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary-yellow);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            background-color: var(--secondary-black);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(255, 222, 89, 0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            background-color: var(--primary-yellow);
+            color: var(--primary-black);
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .size-checkbox input {
+            display: none;
+        }
+        
+        .size-checkbox label {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid var(--text-gray);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .size-checkbox input:checked + label {
+            background-color: var(--primary-yellow);
+            color: var(--primary-black);
+            border-color: var(--primary-yellow);
+        }
+        
+        .color-option {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid var(--text-gray);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .color-option.selected {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 2px var(--primary-yellow);
+        }
+        
+        .category-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+            z-index: 1;
+        }
+        
+        .category-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--text-gray);
+            border-radius: 4px;
+            padding: 0 8px;
+            width: fit-content;
+        }
+        
+        .quantity-selector button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .review-stars {
+            color: var(--primary-yellow);
+        }
+        
+        .swiper-pagination-bullet {
+            background-color: var(--primary-yellow);
+        }
+        
+        .newsletter-input {
+            background-color: var(--secondary-black);
+            border: 1px solid var(--text-gray);
+            color: var(--text-light);
+            padding: 12px 20px;
+            border-radius: 4px;
+        }
+        
+        .banner-gradient {
+            background: linear-gradient(90deg, rgba(18,18,18,0.9) 0%, rgba(18,18,18,0.4) 100%);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: var(--secondary-black);
+            margin: 5% auto;
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 8px;
+            animation: modalFadeIn 0.4s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-30px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        /* Cart Drawer Styles */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background-color: var(--secondary-black);
+            z-index: 1000;
+            transition: right 0.4s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+        }
+        
+        .cart-drawer.open {
+            right: 0;
+        }
+        
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        /* Hamburger Menu Animation */
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: var(--text-light);
+            border-radius: 9px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+        
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
+            top: 9px;
+        }
+        
+        .hamburger span:nth-child(4) {
+            top: 18px;
+        }
+        
+        .hamburger.open span:nth-child(1) {
+            top: 9px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        .hamburger.open span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+        
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+        
+        .hamburger.open span:nth-child(4) {
+            top: 9px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-black);
+            z-index: 50;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .mobile-menu.open {
+            max-height: 400px;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Animation */
+        .fadeIn {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Highlight important content when printing */
+        @media print {
+            .product-card, .hero-section, .featured-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-brand-black shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="#" class="text-3xl font-bold tracking-tighter">
+                        <span>Outfit</span>
+                        <span class="brand-yellow">X</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-primary-yellow">Home</a>
+                    <a href="#men" class="nav-link text-white hover:text-primary-yellow">Men</a>
+                    <a href="#women" class="nav-link text-white hover:text-primary-yellow">Women</a>
+                    <a href="#accessories" class="nav-link text-white hover:text-primary-yellow">Accessories</a>
+                    <a href="#collections" class="nav-link text-white hover:text-primary-yellow">Collections</a>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <button class="hidden md:block text-white hover:text-primary-yellow">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button class="hidden md:block text-white hover:text-primary-yellow">
+                        <i class="fas fa-user text-xl"></i>
+                    </button>
+                    <button class="text-white hover:text-primary-yellow relative" id="cartButton">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-brand-yellow text-brand-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                    <div class="md:hidden hamburger" id="hamburgerBtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden" id="mobileMenu">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="py-2 px-4 text-white hover:bg-secondary-black">Home</a>
+                    <a href="#men" class="py-2 px-4 text-white hover:bg-secondary-black">Men</a>
+                    <a href="#women" class="py-2 px-4 text-white hover:bg-secondary-black">Women</a>
+                    <a href="#accessories" class="py-2 px-4 text-white hover:bg-secondary-black">Accessories</a>
+                    <a href="#collections" class="py-2 px-4 text-white hover:bg-secondary-black">Collections</a>
+                    <div class="flex space-x-4 py-2 px-4">
+                        <button class="text-white hover:text-primary-yellow">
+                            <i class="fas fa-search text-xl"></i>
+                        </button>
+                        <button class="text-white hover:text-primary-yellow">
+                            <i class="fas fa-user text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section relative h-screen" id="home">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/hero-bg.jpg');">
+            <div class="absolute inset-0 banner-gradient"></div>
+        </div>
+        <div class="container mx-auto px-4 h-full flex items-center">
+            <div class="w-full md:w-1/2 z-10 fadeIn">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Dress Bold, <span class="brand-yellow">Live Bold</span></h1>
+                <p class="text-lg md:text-xl mb-8 text-gray-300">Redefining fashion with our cutting-edge designs that speak to the confident, the fearless, and the trailblazers.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#new-arrivals" class="yellow-btn px-8 py-3 rounded-md text-center">Shop New Arrivals</a>
+                    <a href="#collections" class="black-btn px-8 py-3 rounded-md text-center">View Collections</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-16 bg-secondary-black">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Shop By <span class="brand-yellow">Category</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="category-card rounded-lg overflow-hidden h-80">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men-category.jpg" class="w-full h-full object-cover" alt="Men's Collection">
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-10">
+                        <h3 class="text-2xl font-bold mb-2">Men's Collection</h3>
+                        <a href="#men" class="text-primary-yellow hover:text-white transition flex items-center">
+                            Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="category-card rounded-lg overflow-hidden h-80">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women-category.jpg" class="w-full h-full object-cover" alt="Women's Collection">
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-10">
+                        <h3 class="text-2xl font-bold mb-2">Women's Collection</h3>
+                        <a href="#women" class="text-primary-yellow hover:text-white transition flex items-center">
+                            Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="category-card rounded-lg overflow-hidden h-80">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessories-category.jpg" class="w-full h-full object-cover" alt="Accessories">
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-10">
+                        <h3 class="text-2xl font-bold mb-2">Accessories</h3>
+                        <a href="#accessories" class="text-primary-yellow hover:text-white transition flex items-center">
+                            Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="py-16 bg-brand-black" id="new-arrivals">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl font-bold">New <span class="brand-yellow">Arrivals</span></h2>
+                <a href="#" class="text-primary-yellow hover:underline flex items-center">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="1">
+                    <div class="relative">
+                        <span class="product-badge">New</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product1.jpg" alt="Urban Black Jacket" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="1">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Urban Black Jacket</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Men's Streetwear</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$89.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="2">
+                    <div class="relative">
+                        <span class="product-badge">Sale</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product2.jpg" alt="Yellow Summer Dress" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="2">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Yellow Summer Dress</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Women's Casual</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold">$59.99</span>
+                                <span class="text-gray-400 line-through ml-2">$79.99</span>
+                            </div>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="3">
+                    <div class="relative">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product3.jpg" alt="Black & Yellow Sneakers" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="3">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Eclipse Sneakers</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Footwear</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$129.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="4">
+                    <div class="relative">
+                        <span class="product-badge">New</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product4.jpg" alt="Leather Backpack" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="4">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Leather Backpack</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Accessories</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$99.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collection -->
+    <section class="py-16 bg-secondary-black" id="collections">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Featured <span class="brand-yellow">Collection</span></h2>
+            <div class="relative overflow-hidden rounded-xl">
+                <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/collection-banner.jpg" alt="Urban Streetwear Collection" class="w-full h-96 object-cover">
+                <div class="absolute inset-0 banner-gradient flex items-center">
+                    <div class="px-8 md:px-16 w-full md:w-1/2">
+                        <h3 class="text-3xl font-bold mb-4">Urban Streetwear</h3>
+                        <p class="text-gray-300 mb-6">Explore our latest urban streetwear collection that combines comfort with cutting-edge designs. Perfect for the modern trendsetter.</p>
+                        <a href="#" class="yellow-btn px-8 py-3 rounded-md inline-block">Shop Collection</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/collection1.jpg" alt="Urban Collection 1" class="w-full h-48 object-cover transform hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/collection2.jpg" alt="Urban Collection 2" class="w-full h-48 object-cover transform hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/collection3.jpg" alt="Urban Collection 3" class="w-full h-48 object-cover transform hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/collection4.jpg" alt="Urban Collection 4" class="w-full h-48 object-cover transform hover:scale-105 transition duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Men's Section -->
+    <section class="py-16 bg-brand-black" id="men">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl font-bold">Men's <span class="brand-yellow">Collection</span></h2>
+                <a href="#" class="text-primary-yellow hover:underline flex items-center">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="5">
+                    <div class="relative">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men1.jpg" alt="Black Denim Jacket" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="5">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Black Denim Jacket</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Men's Outerwear</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$79.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="6">
+                    <div class="relative">
+                        <span class="product-badge">Sale</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men2.jpg" alt="Yellow Hoodie" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="6">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Yellow Hoodie</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Men's Casual</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold">$49.99</span>
+                                <span class="text-gray-400 line-through ml-2">$69.99</span>
+                            </div>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="7">
+                    <div class="relative">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men3.jpg" alt="Men's Cargo Pants" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="7">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Cargo Pants</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Men's Bottoms</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$64.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="8">
+                    <div class="relative">
+                        <span class="product-badge">New</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men4.jpg" alt="GraphicTee" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="8">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Graphic Tee</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Men's Casual</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$34.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Women's Section -->
+    <section class="py-16 bg-secondary-black" id="women">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl font-bold">Women's <span class="brand-yellow">Collection</span></h2>
+                <a href="#" class="text-primary-yellow hover:underline flex items-center">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="9">
+                    <div class="relative">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women1.jpg" alt="Black Blazer" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="9">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Black Blazer</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Women's Formal</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$119.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="10">
+                    <div class="relative">
+                        <span class="product-badge">Sale</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women2.jpg" alt="Summer Dress" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="10">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Summer Dress</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Women's Casual</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold">$44.99</span>
+                                <span class="text-gray-400 line-through ml-2">$59.99</span>
+                            </div>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="11">
+                    <div class="relative">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women3.jpg" alt="Women's Jeans" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="11">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">High-Waisted Jeans</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Women's Bottoms</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$69.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="12">
+                    <div class="relative">
+                        <span class="product-badge">New</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women4.jpg" alt="Stylish Blouse" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="12">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Stylish Blouse</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Women's Tops</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$39.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section class="py-16 bg-brand-black" id="accessories">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl font-bold">Accessories <span class="brand-yellow">Collection</span></h2>
+                <a href="#" class="text-primary-yellow hover:underline flex items-center">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Accessory 1 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="13">
+                    <div class="relative">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory1.jpg" alt="Leather Watch" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="13">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Leather Watch</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Watches</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$149.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Accessory 2 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="14">
+                    <div class="relative">
+                        <span class="product-badge">Sale</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory2.jpg" alt="Designer Sunglasses" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="14">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Designer Sunglasses</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Eyewear</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold">$79.99</span>
+                                <span class="text-gray-400 line-through ml-2">$99.99</span>
+                            </div>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Accessory 3 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="15">
+                    <div class="relative">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory3.jpg" alt="Leather Belt" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="15">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Leather Belt</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Belts</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$49.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Accessory 4 -->
+                <div class="product-card rounded-lg overflow-hidden" data-product-id="16">
+                    <div class="relative">
+                        <span class="product-badge">New</span>
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory4.jpg" alt="Canvas Tote Bag" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="quick-view-btn bg-white text-black py-2 px-4 rounded-md font-medium transform hover:scale-105 transition" data-product-id="16">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold">Canvas Tote Bag</h3>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Bags</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$39.99</span>
+                            <button class="add-to-cart-btn yellow-btn py-2 px-3 rounded-md text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-secondary-black">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">What Our <span class="brand-yellow">Customers Say</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-brand-black p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/testimonial1.jpg" alt="Customer 1" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Sarah Johnson</h4>
+                            <div class="review-stars text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">"The quality of OutfitX's clothing is outstanding. I've purchased several items and they've all exceeded my expectations. The fit is perfect and the materials are top-notch."</p>
+                </div>
+                
+                <div class="bg-brand-black p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/testimonial2.jpg" alt="Customer 2" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Michael Torres</h4>
+                            <div class="review-stars text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">"I love the Urban Streetwear collection! The designs are unique and the quality is excellent. I've received so many compliments on my OutfitX jacket. Highly recommend!"</p>
+                </div>
+                
+                <div class="bg-brand-black p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/testimonial3.jpg" alt="Customer 3" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Emily Wang</h4>
+                            <div class="review-stars text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">"Fast shipping and excellent customer service! When I had a question about sizing, the team was super helpful. The clothes fit perfectly and look even better in person."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-brand-black">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between bg-secondary-black rounded-xl p-8">
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-2">Join Our <span class="brand-yellow">Newsletter</span></h3>
+                    <p class="text-gray-400">Subscribe to get special offers, free giveaways, and exclusive deals.</p>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="flex flex-col sm:flex-row">
+                        <input type="email" placeholder="Your email address" class="newsletter-input mb-4 sm:mb-0 sm:mr-4 w-full">
+                        <button class="yellow-btn px-6 py-3 rounded-md">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-black pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="#" class="text-3xl font-bold tracking-tighter mb-6 inline-block">
+                        <span>Outfit</span>
+                        <span class="brand-yellow">X</span>
+                    </a>
+                    <p class="text-gray-400 mb-6">Redefining fashion with bold designs and premium quality for the modern trendsetter.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-primary-yellow transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-primary-yellow transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-primary-yellow transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-primary-yellow transition"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-semibold mb-6">Shop</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#men" class="text-gray-400 hover:text-primary-yellow transition">Men's Collection</a></li>
+                        <li><a href="#women" class="text-gray-400 hover:text-primary-yellow transition">Women's Collection</a></li>
+                        <li><a href="#accessories" class="text-gray-400 hover:text-primary-yellow transition">Accessories</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Sale Items</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-semibold mb-6">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Our Stores</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Corporate Responsibility</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-semibold mb-6">Customer Care</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Track Your Order</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Shipping & Delivery</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Returns & Exchanges</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-yellow transition">Size Guide</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 mb-4 md:mb-0">&copy; 2023 OutfitX. All rights reserved.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-primary-yellow transition">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-primary-yellow transition">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-primary-yellow transition">Shipping Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Quick View Modal -->
+    <div class="modal" id="quickViewModal">
+        <div class="modal-content p-0 overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2">
+                    <div class="relative h-96 md:h-full">
+                        <img id="modalProductImage" src="" alt="Product Image" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="md:w-1/2 p-8 max-h-screen overflow-y-auto">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 id="modalProductName" class="text-2xl font-bold"></h3>
+                            <p id="modalProductCategory" class="text-gray-400"></p>
+                        </div>
+                        <button id="closeModal" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="modalProductRating" class="review-stars mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="text-gray-400 ml-2">(24 reviews)</span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div id="modalProductPrice" class="text-2xl font-bold"></div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-2">Description</h4>
+                        <p id="modalProductDescription" class="text-gray-400"></p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-2">Size</h4>
+                        <div class="flex space-x-3">
+                            <div class="size-checkbox">
+                                <input type="radio" name="size" id="size-s" value="S">
+                                <label for="size-s">S</label>
+                            </div>
+                            <div class="size-checkbox">
+                                <input type="radio" name="size" id="size-m" value="M" checked>
+                                <label for="size-m">M</label>
+                            </div>
+                            <div class="size-checkbox">
+                                <input type="radio" name="size" id="size-l" value="L">
+                                <label for="size-l">L</label>
+                            </div>
+                            <div class="size-checkbox">
+                                <input type="radio" name="size" id="size-xl" value="XL">
+                                <label for="size-xl">XL</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-2">Color</h4>
+                        <div class="flex space-x-3">
+                            <div class="color-option selected" style="background-color: #000000;" data-color="Black"></div>
+                            <div class="color-option" style="background-color: #FFDE59;" data-color="Yellow"></div>
+                            <div class="color-option" style="background-color: #FFFFFF; border: 1px solid #ccc;" data-color="White"></div>
+                            <div class="color-option" style="background-color: #6B7280;" data-color="Gray"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="font-semibold mb-2">Quantity</h4>
+                        <div class="quantity-selector">
+                            <button id="decreaseQuantity">-</button>
+                            <span id="quantityValue" class="px-4">1</span>
+                            <button id="increaseQuantity">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
+                        <button id="modalAddToCart" class="yellow-btn px-8 py-3 rounded-md flex-1 flex items-center justify-center">
+                            <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                        </button>
+                        <button id="modalBuyNow" class="black-btn px-8 py-3 rounded-md flex-1 flex items-center justify-center">
+                            <i class="fas fa-bolt mr-2"></i> Buy Now
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <div class="flex space-x-8 text-gray-400 mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle mr-2 brand-yellow"></i>
+                                <span>In Stock</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-truck mr-2 brand-yellow"></i>
+                                <span>Free Shipping</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-6 text-gray-400">
+                            <a href="#" class="flex items-center hover:text-primary-yellow transition">
+                                <i class="far fa-heart mr-2"></i>
+                                <span>Add to Wishlist</span>
+                            </a>
+                            <a href="#" class="flex items-center hover:text-primary-yellow transition">
+                                <i class="fas fa-share-alt mr-2"></i>
+                                <span>Share</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Shopping Cart Drawer -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Your Shopping Cart (3)</h3>
+                <button id="closeCartBtn" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-6 max-h-[calc(100vh-250px)] overflow-y-auto">
+                <!-- Cart Item 1 -->
+                <div class="flex border-b border-gray-700 pb-4">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product1.jpg" alt="Urban Black Jacket" class="w-20 h-20 object-cover rounded">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h4 class="font-semibold">Urban Black Jacket</h4>
+                            <button class="text-gray-400 hover:text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">Size: M | Color: Black</p>
+                        <div class="flex justify-between items-center">
+                            <div class="quantity-selector text-sm">
+                                <button>-</button>
+                                <span class="px-2">1</span>
+                                <button>+</button>
+                            </div>
+                            <span class="font-bold">$89.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Item 2 -->
+                <div class="flex border-b border-gray-700 pb-4">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product3.jpg" alt="Eclipse Sneakers" class="w-20 h-20 object-cover rounded">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h4 class="font-semibold">Eclipse Sneakers</h4>
+                            <button class="text-gray-400 hover:text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">Size: 42 | Color: Black/Yellow</p>
+                        <div class="flex justify-between items-center">
+                            <div class="quantity-selector text-sm">
+                                <button>-</button>
+                                <span class="px-2">1</span>
+                                <button>+</button>
+                            </div>
+                            <span class="font-bold">$129.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Item 3 -->
+                <div class="flex border-b border-gray-700 pb-4">
+                    <img src="https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory2.jpg" alt="Designer Sunglasses" class="w-20 h-20 object-cover rounded">
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between">
+                            <h4 class="font-semibold">Designer Sunglasses</h4>
+                            <button class="text-gray-400 hover:text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">Color: Black</p>
+                        <div class="flex justify-between items-center">
+                            <div class="quantity-selector text-sm">
+                                <button>-</button>
+                                <span class="px-2">1</span>
+                                <button>+</button>
+                            </div>
+                            <span class="font-bold">$79.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 space-y-4">
+                <div class="flex justify-between py-2 border-b border-gray-700">
+                    <span class="text-gray-400">Subtotal</span>
+                    <span class="font-bold">$299.97</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-gray-700">
+                    <span class="text-gray-400">Shipping</span>
+                    <span class="font-bold">Free</span>
+                </div>
+                <div class="flex justify-between py-2">
+                    <span class="font-semibold">Total</span>
+                    <span class="font-bold text-xl">$299.97</span>
+                </div>
+                
+                <div class="space-y-4 mt-6">
+                    <button class="yellow-btn w-full py-3 rounded-md font-semibold">Checkout</button>
+                    <button id="continueShoppingBtn" class="black-btn w-full py-3 rounded-md font-semibold">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product data
+        const products = {
+            1: {
+                name: "Urban Black Jacket",
+                category: "Men's Streetwear",
+                price: "$89.99",
+                description: "This premium Urban Black Jacket combines style with functionality. Crafted from high-quality materials, it features a modern cut with practical pockets and durable stitching. Perfect for casual outings or adding an edge to your everyday style. Water-resistant fabric makes it suitable for various weather conditions.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product1.jpg",
+                rating: 4.5,
+                reviews: 36
+            },
+            2: {
+                name: "Yellow Summer Dress",
+                category: "Women's Casual",
+                price: "$59.99",
+                oldPrice: "$79.99",
+                description: "Brighten your summer wardrobe with this stunning yellow dress. Made from lightweight, breathable fabric, it's perfect for warm days. The flattering silhouette and vibrant color will make you stand out from the crowd. Features adjustable straps and a flowing design for maximum comfort.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product2.jpg",
+                rating: 4.0,
+                reviews: 28
+            },
+            3: {
+                name: "Eclipse Sneakers",
+                category: "Footwear",
+                price: "$129.99",
+                description: "The Eclipse Sneakers combine style and comfort in one sleek package. Featuring our exclusive cushioning technology, these sneakers provide all-day comfort without sacrificing style. The black and yellow color scheme adds a bold touch to any outfit. Perfect for both athletic activities and casual wear.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product3.jpg",
+                rating: 5.0,
+                reviews: 42
+            },
+            4: {
+                name: "Leather Backpack",
+                category: "Accessories",
+                price: "$99.99",
+                description: "This premium leather backpack combines classic style with modern functionality. With multiple compartments including a padded laptop sleeve, it's perfect for work, travel, or daily use. The durable leather exterior develops a beautiful patina over time, making each bag uniquely yours.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/product4.jpg",
+                rating: 4.5,
+                reviews: 19
+            },
+            5: {
+                name: "Black Denim Jacket",
+                category: "Men's Outerwear",
+                price: "$79.99",
+                description: "A wardrobe staple reimagined with our premium black denim. This jacket features a modern cut with subtle distressing for an edgy look. Multiple pockets add functionality while the soft cotton blend ensures comfort. Layer it over any outfit for instant style upgrade.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men1.jpg",
+                rating: 4.0,
+                reviews: 23
+            },
+            6: {
+                name: "Yellow Hoodie",
+                category: "Men's Casual",
+                price: "$49.99",
+                oldPrice: "$69.99",
+                description: "Stay warm and stylish with our signature Yellow Hoodie. Made from premium cotton blend fabric with a soft brushed interior for extra comfort. The vibrant yellow color and minimalist design make it a standout piece in any casual wardrobe. Features a front pocket and adjustable drawstring hood.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men2.jpg",
+                rating: 5.0,
+                reviews: 31
+            },
+            7: {
+                name: "Cargo Pants",
+                category: "Men's Bottoms",
+                price: "$64.99",
+                description: "These modern cargo pants combine utility with style. Multiple pockets provide practical storage while the tapered fit offers a contemporary silhouette. Made from durable cotton blend with a touch of stretch for comfort. Perfect for casual outings or weekend adventures.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men3.jpg",
+                rating: 3.5,
+                reviews: 17
+            },
+            8: {
+                name: "Graphic Tee",
+                category: "Men's Casual",
+                price: "$34.99",
+                description: "Express your individual style with our exclusive graphic tee. The bold design is printed on premium cotton fabric for a soft feel and lasting durability. The regular fit is comfortable for all-day wear. Pair with jeans or joggers for an effortless casual look.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/men4.jpg",
+                rating: 4.0,
+                reviews: 25
+            },
+            9: {
+                name: "Black Blazer",
+                category: "Women's Formal",
+                price: "$119.99",
+                description: "Elevate your professional wardrobe with our tailored black blazer. The streamlined silhouette and premium fabric create a polished look suitable for any business setting. Features include subtle shoulder padding, front pockets, and a single-button closure. Fully lined for comfort and durability.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women1.jpg",
+                rating: 5.0,
+                reviews: 38
+            },
+            10: {
+                name: "Summer Dress",
+                category: "Women's Casual",
+                price: "$44.99",
+                oldPrice: "$59.99",
+                description: "This lightweight summer dress is perfect for warm days. The flowing silhouette and breathable fabric keep you cool and comfortable while the cheerful pattern adds a touch of style. Features adjustable straps and a flattering neckline. Dress it up with accessories or keep it casual.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women2.jpg",
+                rating: 4.0,
+                reviews: 29
+            },
+            11: {
+                name: "High-Waisted Jeans",
+                category: "Women's Bottoms",
+                price: "$69.99",
+                description: "These high-waisted jeans combine vintage inspiration with modern comfort. The flattering silhouette elongates your legs while the premium denim with added stretch ensures all-day comfort. Available in multiple washes, these jeans will quickly become your go-to for any casual occasion.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women3.jpg",
+                rating: 3.5,
+                reviews: 22
+            },
+            12: {
+                name: "Stylish Blouse",
+                category: "Women's Tops",
+                price: "$39.99",
+                description: "This versatile blouse transitions effortlessly from office to evening. The flowing fabric and contemporary cut create a feminine silhouette that pairs perfectly with skirts or pants. The subtle details add interest without overwhelming. Machine washable for easy care.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/women4.jpg",
+                rating: 4.0,
+                reviews: 19
+            },
+            13: {
+                name: "Leather Watch",
+                category: "Watches",
+                price: "$149.99",
+                description: "This sophisticated timepiece combines classic design with modern functionality. The genuine leather strap develops a beautiful patina over time, while the premium movement ensures accurate timekeeping. Water-resistant up to 50 meters and featuring a scratch-resistant crystal face, this watch is built to last.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory1.jpg",
+                rating: 4.5,
+                reviews: 33
+            },
+            14: {
+                name: "Designer Sunglasses",
+                category: "Eyewear",
+                price: "$79.99",
+                oldPrice: "$99.99",
+                description: "Protect your eyes in style with our designer sunglasses. The classic shape flatters most face types while the polarized lenses provide 100% UV protection. The durable frame is lightweight for all-day comfort. Includes a protective case and cleaning cloth.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory2.jpg",
+                rating: 4.0,
+                reviews: 27
+            },
+            15: {
+                name: "Leather Belt",
+                category: "Belts",
+                price: "$49.99",
+                description: "This premium leather belt adds a refined touch to any outfit. Crafted from full-grain leather that ages beautifully, it features a classic buckle in an antique finish. The versatile design works with both casual and formal attire, making it an essential accessory for any wardrobe.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory3.jpg",
+                rating: 4.0,
+                reviews: 21
+            },
+            16: {
+                name: "Canvas Tote Bag",
+                category: "Bags",
+                price: "$39.99",
+                description: "This spacious tote combines practicality with style. Made from durable canvas with leather trim, it's perfect for shopping, beach trips, or as an everyday bag. Features a roomy interior with a zippered pocket for valuables and comfortable shoulder straps. The versatile design complements any casual outfit.",
+                image: "https://cdn.jsdelivr.net/gh/christweeky/placeholder-image@main/fashion/accessory4.jpg",
+                rating: 3.5,
+                reviews: 18
+            }
+        };
+
+        // DOM Elements
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const quickViewBtns = document.querySelectorAll('.quick-view-btn');
+        const modal = document.getElementById('quickViewModal');
+        const closeModal = document.getElementById('closeModal');
+        const cartButton = document.getElementById('cartButton');
+        const cartDrawer = document.getElementById('cartDrawer');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+        const continueShoppingBtn = document.getElementById('continueShoppingBtn');
+        const decreaseQuantityBtn = document.getElementById('decreaseQuantity');
+        const increaseQuantityBtn = document.getElementById('increaseQuantity');
+        const quantityValue = document.getElementById('quantityValue');
+        const colorOptions = document.querySelectorAll('.color-option');
+        const modalAddToCart = document.getElementById('modalAddToCart');
+        const modalBuyNow = document.getElementById('modalBuyNow');
+        const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
+
+        // Mobile Menu Toggle
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Quick View Modal
+        quickViewBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productId = btn.getAttribute('data-product-id');
+                openProductModal(productId);
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Cart Drawer
+        cartButton.addEventListener('click', () => {
+            cartDrawer.classList.add('open');
+            cartOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+
+        const closeCart = () => {
+            cartDrawer.classList.remove('open');
+            cartOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        closeCartBtn.addEventListener('click', closeCart);
+        continueShoppingBtn.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        // Quantity Controls
+        let quantity = 1;
+
+        decreaseQuantityBtn.addEventListener('click', () => {
+            if (quantity > 1) {
+                quantity--;
+                quantityValue.textContent = quantity;
+            }
+        });
+
+        increaseQuantityBtn.addEventListener('click', () => {
+            quantity++;
+            quantityValue.textContent = quantity;
+        });
+
+        // Color Selection
+        colorOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                colorOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Open Product Modal
+        function openProductModal(productId) {
+            const product = products[productId];
+            if (!product) return;
+
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductCategory').textContent = product.category;
+            document.getElementById('modalProductImage').src = product.image;
+            document.getElementById('modalProductImage').alt = product.name;
+            
+            // Set price with potential sale price
+            if (product.oldPrice) {
+                document.getElementById('modalProductPrice').innerHTML = `
+                    <span>${product.price}</span>
+                    <span class="text-gray-400 line-through ml-2 text-lg">${product.oldPrice}</span>
+                `;
+            } else {
+                document.getElementById('modalProductPrice').textContent = product.price;
+            }
+            
+            document.getElementById('modalProductDescription').textContent = product.description;
+            
+            // Reset quantity
+            quantity = 1;
+            quantityValue.textContent = '1';
+            
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Add to Cart functionality
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const productCard = btn.closest('.product-card');
+                const productId = productCard.getAttribute('data-product-id');
+                addToCart(productId, 1);
+            });
+        });
+
+        modalAddToCart.addEventListener('click', () => {
+            const productId = document.querySelector('.modal-content').getAttribute('data-product-id');
+            const quantity = parseInt(quantityValue.textContent);
+            addToCart(productId, quantity);
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            cartDrawer.classList.add('open');
+            cartOverlay.style.display = 'block';
+        });
+
+        modalBuyNow.addEventListener('click', () => {
+            const productId = document.querySelector('.modal-content').getAttribute('data-product-id');
+            const quantity = parseInt(quantityValue.textContent);
+            addToCart(productId, quantity);
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Simulate redirect to checkout
+            alert('Redirecting to checkout...');
+        });
+
+        function addToCart(productId, quantity) {
+            // This is a placeholder for actual add to cart functionality
+            // In a real implementation, this would update a cart object and persist it
+            console.log(`Added product ID ${productId} to cart with quantity ${quantity}`);
+            
+            // Show feedback to user
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-primary-yellow text-primary-black py-2 px-4 rounded-md shadow-lg z-50';
+            notification.textContent = 'Product added to cart!';
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.product-card, .category-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('fadeIn');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Run once on load
+    </script>
+</body>
+</html>
